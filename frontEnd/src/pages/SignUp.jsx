@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -9,6 +11,17 @@ const SignUp = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(name, email, username, password);
+    try {
+      const response = await axios.post("http://localhost:5000/signup", {
+        name,
+        email,
+        username,
+        password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
