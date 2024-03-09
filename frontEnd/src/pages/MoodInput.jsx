@@ -8,9 +8,13 @@ const MoodInput = ({ username }) => {
 
   const handleMoodSubmit = async (date) => {
     try {
-      username= localStorage.getItem("username");
+      username = localStorage.getItem("username");
       console.log(username);
-      await axios.post("http://localhost:5000/api/mood", { username, date, selectedMood });
+      await axios.post("http://localhost:5000/api/mood", {
+        username,
+        date,
+        selectedMood,
+      });
       alert("Mood updated successfully!");
     } catch (error) {
       console.error("Error updating mood:", error);
@@ -27,9 +31,9 @@ const MoodInput = ({ username }) => {
         onChange={(e) => setSelectedMood(parseInt(e.target.value))}
       >
         <option value={0}>-</option>
-        <option value={1}>:(</option>
-        <option value={2}>:|</option>
-        <option value={3}>:)</option>
+        <option value={1}>☹️</option>
+        <option value={2}>😐</option>
+        <option value={3}>😁</option>
       </select>
       <button onClick={() => handleMoodSubmit("2024-12-13")}>
         Update Mood
