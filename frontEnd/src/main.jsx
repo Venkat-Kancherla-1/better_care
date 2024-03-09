@@ -10,6 +10,14 @@ import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 import Preferences from "./pages/Preferences.jsx";
 
+// const [authenticated, setAuthenticated] = useState(false);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem('accessToken');
+//     setAuthenticated(!!token);
+//     console.log("Token from localStorage:", token);
+//   }, []);
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
