@@ -1,26 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Layout from './Layout.jsx'
-import './index.css'
-import Home from './pages/Home.jsx'
-import {Outlet, RouterProvider, createBrowserRouter} from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import { createRoutesFromElements } from 'react-router-dom'
-
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
-      <Route path='' element={<Home />}/>
-      <Route path='*' element={<div>Not Found</div>} />
-    </Route>
-  )
-)
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from './Layout.jsx';
+import Home from './pages/Home.jsx';
+import Signup from './pages/SignUp.jsx';
+import Login from './pages/Login.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <Router>
+      <Routes>
+        <Route
+          path={['/home', '/about']} 
+          element={<Layout />}
+        >
+          <Route path="/home" element={<Home />} />
+          
+        </Route>
+        <Route
+          path={['/signup', '/login']} 
+        >
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>,
-)
-
+);
