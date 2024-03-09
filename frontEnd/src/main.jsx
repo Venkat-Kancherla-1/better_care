@@ -9,6 +9,14 @@ import { createRoutesFromElements } from "react-router-dom";
 import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 
+// const [authenticated, setAuthenticated] = useState(false);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem('accessToken');
+//     setAuthenticated(!!token);
+//     console.log("Token from localStorage:", token);
+//   }, []);
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>

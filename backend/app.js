@@ -1,11 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
 const multer = require('multer');
 const app = express();
 const axios = require('axios');
-const port = 3000;
+const cors = require('cors');
+const port = 5000;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
 mongoose.connect('mongodb+srv://Venkat:12344321@cluster0.kam6qns.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
@@ -34,7 +38,9 @@ app.post('/api/signin', async (req, res) => {
     const user = await User.findOne({ username, password });
 
     if (user) {
-        res.status(200).json({ message: "Successful" });
+        const accessToken = jwt.sign({ username }, "your-secret-key");
+        console.log(accessToken);
+        res.status(200).json({ accessToken: accessToken });
     } else {
         res.status(400).json({ message: "Failed" });
     }
@@ -43,13 +49,14 @@ app.post('/api/signin', async (req, res) => {
 
 app.post('/api/signup', async (req, res) => {
     const {name, username, email, password} = req.body;
-    const user = await User.findOne({username});
+    let user = await User.findOne({username});
     if(user){
-        res.json("username exists", 400);
+        res.json("username exists", 400).end();
+
     }
     user = await User.findOne({email});
     if(user){
-        res.json("email exists", 400);
+        res.json("email exists", 400).end();
     }
     else {
         const newUser = new User({
