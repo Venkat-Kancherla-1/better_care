@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Hero from "./pages/Hero"
-<section className="xl:padding-l wide:padding-r padding-b"> <Hero/>  </section>
+import Header from './pages/Header'
+import Footer from './pages/Footer'
 
 function Layout() {
   return (
