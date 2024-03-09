@@ -8,6 +8,7 @@ function Home() {
      <main className='relative'>
         <Header/>
         <section className=""> <Hero/>  </section>
+        <br />
         <section className=""> <Cards/>  </section>
         <Footer/>
      </main>
