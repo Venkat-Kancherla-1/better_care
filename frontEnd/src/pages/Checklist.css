@@ -1,0 +1,52 @@
+.checklist {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.checklist h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.severity-options {
+  margin-bottom: 20px;
+}
+
+.weekly-to-do-lists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.daily-to-do-list {
+  flex: 1 1 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.daily-to-do-list h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.daily-to-do-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.daily-to-do-list ul > li {
+  margin-bottom: 10px;
+}
+
+.daily-to-do-list ul > li > strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.daily-to-do-list ul > li > ul {
+  padding-left: 20px;
+}
