@@ -8,6 +8,7 @@ import { Route } from "react-router-dom";
 import { createRoutesFromElements } from "react-router-dom";
 import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
+import Preferences from "./pages/Preferences.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="login" element={<Login />}></Route>
+      <Route path="preferences" element={<Preferences />} />
       <Route path="*" element={<div>Not Found</div>} />
     </Route>
   )
