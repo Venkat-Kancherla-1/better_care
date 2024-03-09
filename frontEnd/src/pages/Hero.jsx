@@ -3,9 +3,9 @@ const Hero = () => {
   return (
     <section
       id='home'
-      className='w-full flex xl:flex-row flex-col justify-between pr-10 pl-10 min-h-screen gap-10 max-container'
+      className='w-full flex xl:flex-row justify-between pr-10 pl-10 min-h-screen gap-10'
     >
-      <div className='relative xl:w-2/5 flex flex-col  items-start w-full  max-xl:padding-x pt-28'>
+      <div className='relative xl:w-2/5 flex flex-col  items-start w-full pt-20'>
         <p className='text-xl font-montserrat font-bold '>
         Welcome User! 
         </p>
