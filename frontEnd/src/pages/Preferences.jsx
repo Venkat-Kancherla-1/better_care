@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import axios from "axios";
+
 const Preferences = () => {
   const [selected, setSelected] = useState([]);
 
@@ -43,13 +45,13 @@ const Preferences = () => {
           }
         }
       });
-
-      console.log("Selected options:", formattedSelected);
+      const username = localStorage.getItem("username");
+      console.log(username,formattedSelected);
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/preferences",
-          formattedSelected
+          "http://localhost:5000/api/preferences",{username,
+          formattedSelected}
         );
       } catch (error) {
         console.log(error);

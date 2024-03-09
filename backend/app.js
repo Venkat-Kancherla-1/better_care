@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     physical:Number,
     social:Number,
     practical:Number,
-    Spiritual:Number,
+    spiritual:Number,
 });
 
 const journalSchema = new mongoose.Schema({
@@ -47,8 +47,8 @@ app.post('/api/signin', async (req, res) => {
 
     if (user) {
         const accessToken = jwt.sign({ username }, "your-secret-key");
-        console.log(accessToken);
-        res.status(200).json({ accessToken: accessToken });
+        console.log(accessToken,username);
+        res.status(200).json({ accessToken: accessToken, username:username });
     } else {
         res.status(400).json({ message: "Failed" });
     }
@@ -103,7 +103,35 @@ app.post('api/journals/username', async (req, res) => {
     await newJournal.save();
 })
 
-
+app.post('/api/preferences', async (req, res) => {
+    try {
+      const { username, formattedSelected } = req.body;
+      console.log('Received data:', formattedSelected);
+  
+      // Find the user by username
+      const user = await User.findOne({ username });
+  
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      // Update the user preferences
+      user.emotional = formattedSelected.emotional || user.emotional;
+      user.mental = formattedSelected.mental || user.mental;
+      user.physical = formattedSelected.physical || user.physical;
+      user.social = formattedSelected.social || user.social;
+      user.practical = formattedSelected.practical || user.practical;
+      user.spiritual = formattedSelected.spiritual || user.spiritual;
+  
+      // Save the updated user
+      await user.save();
+  
+      res.status(200).send('Data received and user updated successfully');
+    } catch (error) {
+      console.error('Error processing data:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
 
 app.listen(port, () => {

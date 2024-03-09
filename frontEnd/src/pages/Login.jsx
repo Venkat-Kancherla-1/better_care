@@ -8,16 +8,19 @@ const Login = () => {
     e.preventDefault();
     console.log(username, password);
     try {
-      const response = axios.post("http://localhost:5000/api/signin", {
+      const response = await axios.post("http://localhost:5000/api/signin", {
         username,
         password,
       });
-      if (response.status==200){
+      console.log(response.data); // Log the data here
+      if (response.status === 200) {
         localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('username', response.data.username);
       }
     } catch (error) {
       console.log(error);
     }
+  
     
   };
   return (
