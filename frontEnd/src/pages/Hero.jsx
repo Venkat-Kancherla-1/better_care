@@ -1,14 +1,16 @@
 import Hero_bg from "../assets/images/Hero_bg.png";
 
 const Hero = () => {
+  const username = localStorage.getItem("username");
+
   return (
     <section
       id="home"
       className="w-full flex flex-col lg:flex-row justify-between pr-10 pl-10 gap-10"
     >
       <div className="relative lg:w-2/5 flex flex-col items-start w-full pt-10 lg:pt-20 lg:ml-60 lg:mt-12">
-        <p className="text-3xl lg:text-6xl font-montserrat font-bold leading-tight pl-20">
-          Welcome <span className="text-blue-500">User!</span>
+        <p className="text-3xl lg:text-7xl  font-bold leading-tight pl-20">
+          Welcome <span className="text-[#00dfc2] ">{username}!</span>
         </p>
         <span className="text-base lg:text-3xl text-gray-600 pl-5">
           Hope you are doing great!
