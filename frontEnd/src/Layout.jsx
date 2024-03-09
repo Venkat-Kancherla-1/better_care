@@ -5,10 +5,9 @@ import Footer from './pages/Footer'
 
 function Layout() {
   return (
-    <>
+
         <Outlet/>
 
-    </>
   )
 }
 
