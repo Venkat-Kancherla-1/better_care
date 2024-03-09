@@ -6,9 +6,8 @@ import Footer from './pages/Footer'
 function Layout() {
   return (
     <>
-        <Header />
         <Outlet/>
-        <Footer/>
+
     </>
   )
 }
