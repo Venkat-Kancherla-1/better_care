@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import image from '../assets/icons/image.png'
 export default function Footer() {
   return (
       <footer className="bg-white border-y">
           <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
               <div className="md:flex md:justify-between">
                   <div className="mb-6 md:mb-0">
-                      <Link to="https://google.com" target='_blank' className="flex items-center">
+                      <Link to="home" target='_blank' className="flex items-center">
                           <img
-                              src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
+                              src={image}
                               className="mr-3 h-16"     
                               alt="Logo"
                           />
