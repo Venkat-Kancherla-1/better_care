@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
     social:Number,
     practical:Number,
     spiritual:Number,
+    moods: [
+        {
+            month: Number,  // 0-based index (0 for January, 1 for February, etc.)
+            year: Number,   // 4-digit year
+            data: [
+                {
+                    day: Number,  // 1-based index (1 for the first day of the month)
+                    mood: Number, // 0 for neutral, 1 for :(, 2 for :|, 3 for :)
+                }
+            ]
+        }
+    ],
 });
 
 const journalSchema = new mongoose.Schema({
@@ -102,6 +114,75 @@ app.post('api/journals/username', async (req, res) => {
 
     await newJournal.save();
 })
+app.post("/api/mood", async (req, res) => {
+    console.log("executed");
+    try {
+      const { username, date, selectedMood } = req.body;
+      console.log(username, date, selectedMood);
+  
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res.status(404).send(`User not found for username: ${username}`);
+      }
+  
+      // Find the month in user's mood data, create if it doesn't exist
+      const year = new Date(date).getFullYear();
+      const monthIndex = new Date(date).getMonth()+1;
+      console.log(year, monthIndex);
+      const monthYearData = user.moods.find((item) => item.month === monthIndex && item.year === year);
+  
+      if (!monthYearData) {
+        // If the month doesn't exist, create a new entry
+        user.moods.push({
+          month: monthIndex,
+          year,
+          data: [{ day: new Date(date).getDate(), mood: selectedMood }],
+        });
+      } else {
+        // If the month exists, find the day and update the mood
+        const dayIndex = monthYearData.data.findIndex((item) => item.day === new Date(date).getDate())+1;
+  
+        if (dayIndex !== -1) {
+          monthYearData.data[dayIndex].mood = selectedMood;
+        } else {
+          // If the day doesn't exist, create a new entry for the day
+          monthYearData.data.push({ day: new Date(date).getDate(), mood: selectedMood });
+        }
+      }
+  
+      // Save the updated user
+      await user.save();
+  
+      res.status(200).send("Mood updated successfully");
+    } catch (error) {
+      console.error("Error updating mood:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+
+
+app.get(`/api/mood/:username`, async (req, res) => {
+    try {
+        // Fetch mood data based on the provided username
+        console.log(req.params.username);
+        const user = await User.findOne({ username: req.params.username });
+
+        if (!user) {
+            return res.status(404).send(`User not found for username: ${req.params.username}`);
+        }
+
+        // Assuming you have a 'moods' array in your user schema
+        const moodData = user.moods || [];
+
+        res.status(200).json({ moodData });
+    } catch (error) {
+        console.error("Error fetching mood data:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 
 app.post('/api/preferences', async (req, res) => {
     try {
