@@ -1,0 +1,41 @@
+.mood-tracker {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  /* padding: 8px; */
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.mood-cell {
+  width: 20px;
+  height: 20px;
+}
+
+.sad {
+  background-color: #808080;
+}
+
+.neutral {
+  background-color: #ffc6bf;
+}
+
+.average {
+  background-color: #ff7faf;
+}
+
+.happy {
+  background-color: #8333ea;
+}

@@ -77,9 +77,18 @@ const tasksByTopic = {
   ],
 };
 
+// Define selected topics
+const selectedTopics = [
+  "emotional",
+  "spiritual",
+  "physical",
+  //   "mental",
+  //   "practical",
+  //   "social",
+];
+const severity = 2;
 const Checklist = () => {
   const [weeklyToDoLists, setWeeklyToDoLists] = useState([]);
-  let severity = 1;
 
   useEffect(() => {
     generateWeeklyToDoLists();
@@ -88,26 +97,11 @@ const Checklist = () => {
   const generateWeeklyToDoLists = () => {
     const weeklyToDoLists = [];
     for (let i = 0; i < 7; i++) {
-      const topicsForDay = selectTopicsForDay();
+      const topicsForDay = selectedTopics;
       const toDoList = generateToDoList(topicsForDay);
       weeklyToDoLists.push(toDoList);
     }
     setWeeklyToDoLists(weeklyToDoLists);
-  };
-
-  const selectTopicsForDay = () => {
-    const topics = [
-      "emotional",
-      "spiritual",
-      "physical",
-      "mental",
-      "practical",
-      "social",
-    ];
-    // Randomly shuffle topics array
-    topics.sort(() => Math.random() - 0.5);
-    // Select the first three topics
-    return topics.slice(0, 3);
   };
 
   const generateToDoList = (topics) => {
@@ -115,6 +109,7 @@ const Checklist = () => {
     topics.forEach((topic) => {
       const tasks = tasksByTopic[topic];
       let numberOfTasks = 0;
+      // Randomly select number of tasks based on severity
       if (severity === 3) numberOfTasks = 5;
       else if (severity === 2) numberOfTasks = 3;
       else if (severity === 1) numberOfTasks = 2;
@@ -129,7 +124,7 @@ const Checklist = () => {
 
   const toggleCompletion = (dayIndex, topicIndex, taskIndex) => {
     const updatedLists = [...weeklyToDoLists];
-    const topicKey = Object.keys(updatedLists[dayIndex])[topicIndex];
+    const topicKey = selectedTopics[topicIndex];
     if (!updatedLists[dayIndex][topicKey]) {
       console.log("Error: Tasks array is undefined.");
       return;
@@ -189,3 +184,25 @@ const Checklist = () => {
 };
 
 export default Checklist;
+
+{
+  /*
+    const generateWeeklyToDoLists = () => {
+  const storedLists = JSON.parse(localStorage.getItem("weeklyToDoLists"));
+  if (storedLists) {
+    setWeeklyToDoLists(storedLists);
+  } else {
+    const newLists = [];
+    for (let i = 0; i < 7; i++) {
+      const topicsForDay = selectedTopics;
+      const toDoList = generateToDoList(topicsForDay);
+      newLists.push(toDoList);
+    }
+    setWeeklyToDoLists(newLists);
+    // Store the newly generated lists in local storage
+    localStorage.setItem("weeklyToDoLists", JSON.stringify(newLists));
+  }
+};
+
+ */
+}
