@@ -12,13 +12,12 @@ const Login = () => {
         username,
         password,
       });
-      if (response.status==200){
-        localStorage.setItem('accessToken', response.data.accessToken);
+      if (response.status == 200) {
+        localStorage.setItem("accessToken", response.data.accessToken);
       }
     } catch (error) {
       console.log(error);
     }
-    
   };
   return (
     <>
