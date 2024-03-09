@@ -1,0 +1,45 @@
+.title {
+  text-align: center;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.option {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #e0e0e0;
+}
+
+.option.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.next-button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #0056b3;
+}
+
+.total-marks {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
