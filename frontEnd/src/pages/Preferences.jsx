@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import "./Preferences.css";
 import axios from "axios";
-
+import Header from "./Header";
+import Footer from "./Footer";
 const Preferences = () => {
   const [selected, setSelected] = useState([]);
 
@@ -64,16 +65,49 @@ const Preferences = () => {
   return (
     <>
       <div>
-        <h1>What kind of Self-Care Activities are you interested in? </h1>
-        <div>
-          <div onClick={() => handleClick(1)}>Emotional</div>
-          <div onClick={() => handleClick(2)}>Mental</div>
-          <div onClick={() => handleClick(3)}>Physical</div>
-          <div onClick={() => handleClick(4)}>Social</div>
-          <div onClick={() => handleClick(5)}>Practical</div>
-          <div onClick={() => handleClick(6)}>Spiritual</div>
+        <Header />
+        <h1 className="preferences-header">
+          What kind of Self-Care Activities are you interested in?{" "}
+        </h1>
+        <div className="options-list">
+          <div className="div1">
+            <div
+              onClick={() => handleClick(1)}
+              className="option-item emotional"
+            >
+              Emotional
+            </div>
+            <div onClick={() => handleClick(2)} className="option-item mental">
+              Mental
+            </div>
+            <div
+              onClick={() => handleClick(3)}
+              className="option-item physical"
+            >
+              Physical
+            </div>
+          </div>
+          <div className="div2">
+            <div onClick={() => handleClick(4)} className="option-item social">
+              Social
+            </div>
+            <div
+              onClick={() => handleClick(5)}
+              className="option-item practical"
+            >
+              Practical
+            </div>
+            <div
+              onClick={() => handleClick(6)}
+              className="option-item spiritual"
+            >
+              Spiritual
+            </div>
+          </div>
+
           <button onClick={handleNext}>Next➡️</button>
         </div>
+        <Footer />
       </div>
     </>
   );
