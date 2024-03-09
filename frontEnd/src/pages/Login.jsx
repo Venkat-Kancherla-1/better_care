@@ -1,9 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+
 const Login = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(username, password);
@@ -14,16 +15,14 @@ const Login = () => {
       });
       console.log(response.data); // Log the data here
       if (response.status === 200) {
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('username', response.data.username);
-      if (response.status == 200) {
         localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("username", response.data.username);
       }
     } catch (error) {
       console.log(error);
     }
-  
   };
+
   return (
     <>
       <div>
