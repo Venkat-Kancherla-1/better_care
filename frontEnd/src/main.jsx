@@ -13,6 +13,7 @@ import { createRoutesFromElements } from "react-router-dom";
 import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 import Preferences from "./pages/Preferences.jsx";
+import About from "./pages/About.jsx";
 
 // const [authenticated, setAuthenticated] = useState(false);
 
@@ -25,8 +26,9 @@ import Preferences from "./pages/Preferences.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route path="" element={<Home />} />
-      <Route path="signup" element={<SignUp />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<SignUp />} />
+      <Route path="/about" element = {<About/>}/>
       <Route path="login" element={<Login />}></Route>
       <Route path="preferences" element={<Preferences />} />
       <Route path="test" element={<Test />} />
