@@ -1,0 +1,52 @@
+.preferences-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 3rem;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 2rem;
+}
+.emotional {
+  background-image: url("../assets/images/EMOTIONAL.jpg");
+}
+.physical {
+  background-image: url("../assets/images/PHYSICAL.jpg");
+}
+.social {
+  background-image: url("../assets/images/SOCIAL.jpg");
+}
+.practical {
+  background-image: url("../assets/images/PRACTICAL.jpg");
+}
+.mental {
+  background-image: url("../assets/images/MENTAL.jpg");
+}
+.spiritual {
+  background-image: url("../assets/images/SPIRITUAL.jpg");
+}
+.option-item {
+  width: 14rem;
+  height: max-content;
+  color: #f8f7f2;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+
+  border-radius: 0.3rem;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+button {
+  background-color: #8333ea;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  color: #f8f7f2;
+}
