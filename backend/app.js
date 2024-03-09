@@ -28,9 +28,17 @@ const userSchema = new mongoose.Schema({
     Spiritual:Number,
 });
 
+const journalSchema = new mongoose.Schema({
+    username:String,
+    date:String,
+    tag:String,
+    description:String
+})
+
 
 // MongoDB Schema
 const User = mongoose.model('user', userSchema);
+const Journal = mongoose.model('journal', journalSchema);
 
 
 app.post('/api/signin', async (req, res) => {
@@ -69,14 +77,31 @@ app.post('/api/signup', async (req, res) => {
             physical:0,
             social:0,
             practical:0,
-            Spiritual:0,
+            spiritual:0,
         });
 
         await newUser.save();
     }
 })
 
+app.get('api/journals/username', async (req, res) => {
+    const {username} = req.body;
+    const posts = await Journal.find({ username:username });
 
+    res.json({ status: "success", data: posts });
+})
+
+app.post('api/journals/username', async (req, res) => {
+    const {username, date, tag, description} = req.body;
+    const newJournal = new Journal({
+        username:username,
+        date:date,
+        tag:tag,
+        description:description,
+    })
+
+    await newJournal.save();
+})
 
 
 
