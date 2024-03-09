@@ -82,13 +82,30 @@ const Test = () => {
     }
   };
 
-  const calculateTotalMarks = () => {
+  const calculateTotalMarks = async () => {
     let total = 0;
     answers.forEach((answer) => {
       total += answer;
     });
     setTotalMarks(total);
     console.log("Total Marks:", total);
+    let severity = 0;
+    if (total >= 0 && total <= 14) {
+      severity = 1;
+    } else if (total > 15 && total <= 29) {
+      severity = 2;
+    } else if (total > 30 && total <= 43) {
+      severity = 3;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/test",
+        severity
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

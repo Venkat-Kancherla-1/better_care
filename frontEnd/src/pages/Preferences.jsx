@@ -46,12 +46,12 @@ const Preferences = () => {
         }
       });
       const username = localStorage.getItem("username");
-      console.log(username,formattedSelected);
+      console.log(username, formattedSelected);
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/preferences",{username,
-          formattedSelected}
+          "http://localhost:5000/api/preferences",
+          { username, formattedSelected }
         );
       } catch (error) {
         console.log(error);
