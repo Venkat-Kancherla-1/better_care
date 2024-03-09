@@ -1,31 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./MoodTracker.css";
 
-const MoodTracker = () => {
-  // Generate mood data for the year (assuming you have mood data stored somewhere)
-  const [moodData, setMoodData] = useState(generateMoodData());
+const MoodTracker = ({ username }) => {
+  const [moodData, setMoodData] = useState([]);
 
-  // Function to generate mock mood data for the year
-  function generateMoodData() {
-    const months = [];
-    for (let month = 0; month < 12; month++) {
-      const monthMoods = [];
-      const daysInMonth = new Date(2024, month + 1, 0).getDate();
-      for (let day = 0; day < daysInMonth; day++) {
-        // Initialize mood for each day as neutral (0 - white, no specific mood)
-        monthMoods.push(0);
+  // Fetch mood data from the database on component mount
+  useEffect(() => {
+    const fetchMoodData = async () => {
+      try {
+        username= localStorage.getItem("username");
+        const response = await axios.get(`http://localhost:5000/api/mood/${username}`);
+        const receivedData = response.data.moodData || [];
+        const sortedMoodData = receivedData.sort((a, b) => {
+          if (a.year !== b.year) {
+            return a.year - b.year;
+          }
+          return a.month - b.month;
+        });
+
+        console.log(response.moodData);
+        console.log("Received Data:",sortedMoodData); 
+        setMoodData(receivedData); // Ensure moodData is not undefined
+      } catch (error) {
+        console.error("Error fetching mood data:", error);
+        setMoodData([]); // Set an empty array in case of an error
       }
-      months.push(monthMoods);
-    }
-    return months;
-  }
+    };
 
-  // Function to handle mood selection for a specific day
-  const handleMoodSelection = (monthIndex, dayIndex, selectedMood) => {
-    const updatedMoodData = [...moodData];
-    updatedMoodData[monthIndex][dayIndex] = selectedMood;
-    setMoodData(updatedMoodData);
-  };
+    fetchMoodData();
+  }, [username]);
 
   return (
     <div className="mood-tracker">
@@ -40,36 +44,26 @@ const MoodTracker = () => {
           </tr>
         </thead>
         <tbody>
-          {moodData.map((monthMoods, monthIndex) => (
-            <tr key={monthIndex}>
+          {moodData.map((monthData) => (
+            <tr key={monthData._id}>
               <td>
-                {new Date(2024, monthIndex, 1).toLocaleString("default", {
+                {new Date(monthData.year, monthData.month - 1, 1).toLocaleString("default", {
                   month: "short",
                 })}
               </td>
-              {monthMoods.map((mood, dayIndex) => (
-                <td
-                  key={dayIndex}
-                  className={`mood-cell ${getMoodColor(mood)}`}
-                >
-                  <select
-                    className={`mood-select`}
-                    value={mood}
-                    onChange={(e) =>
-                      handleMoodSelection(
-                        monthIndex,
-                        dayIndex,
-                        parseInt(e.target.value)
-                      )
-                    }
+              {Array.from({ length: 31 }, (_, index) => index + 1).map((day) => {
+                const dayData = monthData.data.find((d) => d.day === day);
+                const mood = dayData ? dayData.mood : 0;
+
+                return (
+                  <td
+                    key={day}
+                    className={`mood-cell ${getMoodColor(mood)}`}
                   >
-                    <option value={0}>-</option>
-                    <option value={1}>:(</option>
-                    <option value={2}>:|</option>
-                    <option value={3}>:)</option>
-                  </select>
-                </td>
-              ))}
+                    {mood}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

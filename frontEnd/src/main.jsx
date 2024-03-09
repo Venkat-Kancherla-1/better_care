@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import Layout from "./Layout.jsx";
 import Test from "./pages/Test.jsx";
 import MoodTracker from "./pages/MoodTracker.jsx";
+import MoodInput from "./pages/MoodInput.jsx";
 import Checklist from "./pages/Checklist.jsx";
 import "./index.css";
 import Home from "./pages/Home.jsx";
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="test" element={<Test />} />
       <Route path="checklist" key="checklist" element={<Checklist />} />
       <Route path="moodtracker" element={<MoodTracker />} />
+      <Route path="moodinput" element={<MoodInput />} />
       <Route path="*" element={<div>Not Found</div>} />
     </Route>
   )
