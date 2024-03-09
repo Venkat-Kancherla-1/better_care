@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Layout from "./Layout.jsx";
+import Test from "./pages/Test.jsx";
 import "./index.css";
 import Home from "./pages/Home.jsx";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="signup" element={<SignUp />} />
       <Route path="login" element={<Login />}></Route>
       <Route path="preferences" element={<Preferences />} />
+      <Route path="test" element={<Test />} />
       <Route path="*" element={<div>Not Found</div>} />
     </Route>
   )
