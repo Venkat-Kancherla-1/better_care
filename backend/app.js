@@ -25,12 +25,20 @@ const userSchema = new mongoose.Schema({
     physical:Number,
     social:Number,
     practical:Number,
-    Spiritual:Number,
+    spiritual:Number,
 });
+
+const journalSchema = new mongoose.Schema({
+    username:String,
+    date:String,
+    tag:String,
+    description:String
+})
 
 
 // MongoDB Schema
 const User = mongoose.model('user', userSchema);
+const Journal = mongoose.model('journal', journalSchema);
 
 
 app.post('/api/signin', async (req, res) => {
@@ -39,8 +47,8 @@ app.post('/api/signin', async (req, res) => {
 
     if (user) {
         const accessToken = jwt.sign({ username }, "your-secret-key");
-        console.log(accessToken);
-        res.status(200).json({ accessToken: accessToken });
+        console.log(accessToken,username);
+        res.status(200).json({ accessToken: accessToken, username:username });
     } else {
         res.status(400).json({ message: "Failed" });
     }
@@ -69,16 +77,61 @@ app.post('/api/signup', async (req, res) => {
             physical:0,
             social:0,
             practical:0,
-            Spiritual:0,
+            spiritual:0,
         });
 
         await newUser.save();
     }
 })
 
+app.get('api/journals/username', async (req, res) => {
+    const {username} = req.body;
+    const posts = await Journal.find({ username:username });
 
+    res.json({ status: "success", data: posts });
+})
 
+app.post('api/journals/username', async (req, res) => {
+    const {username, date, tag, description} = req.body;
+    const newJournal = new Journal({
+        username:username,
+        date:date,
+        tag:tag,
+        description:description,
+    })
 
+    await newJournal.save();
+})
+
+app.post('/api/preferences', async (req, res) => {
+    try {
+      const { username, formattedSelected } = req.body;
+      console.log('Received data:', formattedSelected);
+  
+      // Find the user by username
+      const user = await User.findOne({ username });
+  
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      // Update the user preferences
+      user.emotional = formattedSelected.emotional || user.emotional;
+      user.mental = formattedSelected.mental || user.mental;
+      user.physical = formattedSelected.physical || user.physical;
+      user.social = formattedSelected.social || user.social;
+      user.practical = formattedSelected.practical || user.practical;
+      user.spiritual = formattedSelected.spiritual || user.spiritual;
+  
+      // Save the updated user
+      await user.save();
+  
+      res.status(200).send('Data received and user updated successfully');
+    } catch (error) {
+      console.error('Error processing data:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
 
 app.listen(port, () => {

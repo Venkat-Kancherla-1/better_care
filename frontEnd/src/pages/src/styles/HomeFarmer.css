@@ -1,0 +1,20 @@
+.farmer-navbar {
+  background-color: #816ad6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* position: fixed; */
+  width: 100vw;
+  z-index: 100;
+}
+.farmer-nav-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.farmer-nav-items li {
+  list-style: none;
+  margin: 0 10px;
+}
