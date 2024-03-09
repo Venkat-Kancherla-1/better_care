@@ -47,6 +47,28 @@ const journalSchema = new mongoose.Schema({
     description:String
 })
 
+const checklistSchema = new mongoose.Schema({
+    username: String,
+    weeklyToDoLists: [
+        {
+            topics: [String],  // Array of selected topics for the day
+            toDoList: [
+                {
+                    topic: String,  // Topic name
+                    tasks: [
+                        {
+                            task: String,  // Task name
+                            completed: Boolean,  // Task completion status
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+});
+
+const Checklist = mongoose.model('checklist', checklistSchema);
+
 
 // MongoDB Schema
 const User = mongoose.model('user', userSchema);
@@ -92,7 +114,12 @@ app.post('/api/signup', async (req, res) => {
             spiritual:0,
         });
 
+        const newChecklist = new Checklist({
+            username:username
+        })
+
         await newUser.save();
+        await newChecklist.save();
     }
 })
 
@@ -186,33 +213,77 @@ app.get(`/api/mood/:username`, async (req, res) => {
 
 app.post('/api/preferences', async (req, res) => {
     try {
-      const { username, formattedSelected } = req.body;
-      console.log('Received data:', formattedSelected);
+        const { username, formattedSelected } = req.body;
+        console.log('Received data:', formattedSelected);
+
+        // Find the user by username
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Update the user preferences
+        user.emotional = formattedSelected.emotional || user.emotional;
+        user.mental = formattedSelected.mental || user.mental;
+        user.physical = formattedSelected.physical || user.physical;
+        user.social = formattedSelected.social || user.social;
+        user.practical = formattedSelected.practical || user.practical;
+        user.spiritual = formattedSelected.spiritual || user.spiritual;
+
+        // Save the updated user
+        await user.save();
+
+
+
+        res.status(200).send('Data received, user updated, and weekly to-do lists generated and stored successfully');
+    } catch (error) {
+        console.error('Error processing data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/api/checklists/:username', async (req, res) => {
+    try {
+      const { username } = req.params;
+      
+      const checklist = await Checklist.findOne({ username });
+      console.log(checklist);
   
-      // Find the user by username
-      const user = await User.findOne({ username });
-  
-      if (!user) {
-        return res.status(404).send('User not found');
+      if (!checklist) {
+        return res.status(404).send(`Checklist not found for username: ${username}`);
       }
   
-      // Update the user preferences
-      user.emotional = formattedSelected.emotional || user.emotional;
-      user.mental = formattedSelected.mental || user.mental;
-      user.physical = formattedSelected.physical || user.physical;
-      user.social = formattedSelected.social || user.social;
-      user.practical = formattedSelected.practical || user.practical;
-      user.spiritual = formattedSelected.spiritual || user.spiritual;
-  
-      // Save the updated user
-      await user.save();
-  
-      res.status(200).send('Data received and user updated successfully');
+      res.status(200).json({ weeklyToDoLists: checklist.weeklyToDoLists });
     } catch (error) {
-      console.error('Error processing data:', error);
+      console.error('Error fetching weekly to-do lists:', error);
       res.status(500).send('Internal Server Error');
     }
   });
+  
+  app.post('/api/checklists', async (req, res) => {
+    try {
+      const { username, weeklyToDoLists } = req.body;
+  
+      const existingChecklist = await Checklist.findOne({ username });
+  
+      if (!existingChecklist) {
+        return res.status(404).send('Checklist not found for the user');
+      }
+  
+      // Update existing checklist with the new tasks
+      existingChecklist.weeklyToDoLists = weeklyToDoLists;
+  
+      // Save the updated checklist to the database
+      await existingChecklist.save();
+  
+      res.status(200).send('Weekly to-do lists updated successfully');
+    } catch (error) {
+      console.error('Error updating weekly to-do lists:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
 
 
 app.listen(port, () => {

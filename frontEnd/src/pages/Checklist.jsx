@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Checklist.css"; // Import CSS file for styling
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 // Define predefined tasks for each topic
 const tasksByTopic = {
@@ -91,21 +92,49 @@ const Checklist = () => {
   const [weeklyToDoLists, setWeeklyToDoLists] = useState([]);
 
   useEffect(() => {
-    generateWeeklyToDoLists();
-  }, []); // Run once on component mount
+    checkAndGenerateWeeklyToDoLists();
+  }, []);
 
-  const generateWeeklyToDoLists = () => {
-    const weeklyToDoLists = [];
-    for (let i = 0; i < 7; i++) {
-      const topicsForDay = selectedTopics;
-      const toDoList = generateToDoList(topicsForDay);
-      weeklyToDoLists.push(toDoList);
+  const checkAndGenerateWeeklyToDoLists = async () => {
+    try {
+      const username=localStorage.getItem("username");
+      const response = await axios.get(`http://localhost:5000/api/checklists/${username}`);
+      const fetchedWeeklyToDoLists = response.data.weeklyToDoLists;
+
+      if (fetchedWeeklyToDoLists.length === 0) {
+        // If the weekly to-do lists are empty, generate new tasks and save them into the database
+        generateAndSaveWeeklyToDoLists();
+      } else {
+        // If the weekly to-do lists are not empty, set them in the state
+        setWeeklyToDoLists(fetchedWeeklyToDoLists);
+      }
+    } catch (error) {
+      console.error('Error fetching or generating weekly to-do lists:', error);
     }
-    setWeeklyToDoLists(weeklyToDoLists);
+  };
+
+  const generateAndSaveWeeklyToDoLists = async () => {
+    try {
+      const newLists = [];
+      for (let i = 0; i < 7; i++) {
+        const topicsForDay = selectedTopics;
+        const toDoList = generateToDoList(topicsForDay);
+        newLists.push({ topics: topicsForDay, toDoList });
+      }
+
+      setWeeklyToDoLists(newLists);
+      const username = localStorage.getItem("username");
+      await axios.post('http://localhost:5000/api/checklists', { username: username, weeklyToDoLists: newLists });
+      
+      // Set the newly generated lists in the state
+      setWeeklyToDoLists(newLists);
+    } catch (error) {
+      console.error('Error generating and saving weekly to-do lists:', error);
+    }
   };
 
   const generateToDoList = (topics) => {
-    const toDoList = {};
+    const toDoList = [];
     topics.forEach((topic) => {
       const tasks = tasksByTopic[topic];
       let numberOfTasks = 0;
@@ -114,14 +143,17 @@ const Checklist = () => {
       else if (severity === 2) numberOfTasks = 3;
       else if (severity === 1) numberOfTasks = 2;
       // Randomly select tasks from the topic
-      toDoList[topic] = tasks
+      const topicTasks = tasks
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfTasks)
-        .map((task) => ({ task, completed: false })); // Add completed property
+        .map((task) => ({ task, completed: false }));
+  
+      toDoList.push({ topic, tasks: topicTasks });
     });
+    console.log(toDoList);
     return toDoList;
   };
-
+  
   const toggleCompletion = (dayIndex, topicIndex, taskIndex) => {
     const updatedLists = [...weeklyToDoLists];
     const topicKey = selectedTopics[topicIndex];
@@ -151,11 +183,11 @@ const Checklist = () => {
               new Date(Date.now() + index * 24 * 60 * 60 * 1000)
             )}`}</h3>
             <ul>
-              {Object.entries(dailyList).map(([topic, tasks], i) => (
+              {dailyList.toDoList.map((topicTasks, i) => (
                 <li key={i}>
-                  <strong>{topic}</strong>
+                  <strong>{topicTasks.topic}</strong>
                   <ul>
-                    {tasks.map((task, j) => (
+                    {topicTasks.tasks.map((task, j) => (
                       <li
                         key={j}
                         style={{
@@ -184,25 +216,3 @@ const Checklist = () => {
 };
 
 export default Checklist;
-
-{
-  /*
-    const generateWeeklyToDoLists = () => {
-  const storedLists = JSON.parse(localStorage.getItem("weeklyToDoLists"));
-  if (storedLists) {
-    setWeeklyToDoLists(storedLists);
-  } else {
-    const newLists = [];
-    for (let i = 0; i < 7; i++) {
-      const topicsForDay = selectedTopics;
-      const toDoList = generateToDoList(topicsForDay);
-      newLists.push(toDoList);
-    }
-    setWeeklyToDoLists(newLists);
-    // Store the newly generated lists in local storage
-    localStorage.setItem("weeklyToDoLists", JSON.stringify(newLists));
-  }
-};
-
- */
-}
