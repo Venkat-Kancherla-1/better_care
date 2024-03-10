@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -14,8 +14,11 @@ const Cards = () => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6">
         {cards1.map((card, index) => (
-          <Card key={index} className="mt-6">
-            <CardHeader color="blue-gray" className="relative h-56 rounded-lg">
+          <Card key={index} className="mt-6 hover:scale-110 transition-transform">
+            <CardHeader
+              color="blue-gray"
+              className="relative h-56 rounded-lg px-3 py-3"
+            >
               <img
                 src={card.imageURL}
                 alt="card-image"
@@ -26,7 +29,7 @@ const Cards = () => {
               <Typography
                 variant="h3"
                 color="blue-gray"
-                className="ml-2 font-bold mb-2 text-shadow-md "
+                className="ml-2 font-bold mb-2 text-shadow-md"
               >
                 {card.title}
               </Typography>
@@ -34,7 +37,7 @@ const Cards = () => {
             </CardBody>
             <CardFooter className="flex justify-center">
               <Link to={card.link}>
-                <button className="bg-teal-400 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
+                <button className="bg-teal-600 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
                   Explore!
                 </button>
               </Link>
@@ -42,10 +45,15 @@ const Cards = () => {
           </Card>
         ))}
       </div>
+      <br />
+      <br />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 justify-center lg:px-40">
         {cards2.map((card, index) => (
-          <Card key={index} className="mt-6">
-            <CardHeader color="blue-gray" className="relative h-56 rounded-lg ">
+          <Card key={index} className="mt-6 hover:scale-110 transition-transform">
+            <CardHeader
+              color="blue-gray"
+              className="relative h-56 px-3 py-3 rounded-lg"
+            >
               <img
                 src={card.imageURL}
                 alt="card-image"
@@ -56,7 +64,7 @@ const Cards = () => {
               <Typography
                 variant="h3"
                 color="blue-gray"
-                className="ml-2 font-bold mb-2 "
+                className="ml-2 font-bold mb-2"
               >
                 {card.title}
               </Typography>
@@ -64,7 +72,7 @@ const Cards = () => {
             </CardBody>
             <CardFooter className="flex justify-center">
               <Link to={card.link}>
-                <button className="bg-teal-400 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
+                <button className="bg-teal-600 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
                   Explore!
                 </button>
               </Link>

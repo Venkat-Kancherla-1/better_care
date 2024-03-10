@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./Checklist.css"; // Import CSS file for styling
+import Header from "./Header";
+import Footer from "./Footer";
+import bg from '../assets/images/checklist.jpg';
 
-// Define predefined tasks for each topic
 const tasksByTopic = {
   emotional: [
     "Task 1",
@@ -77,7 +78,6 @@ const tasksByTopic = {
   ],
 };
 
-// Define selected topics
 const selectedTopics = [
   "emotional",
   "spiritual",
@@ -87,12 +87,13 @@ const selectedTopics = [
   //   "social",
 ];
 const severity = 2;
+
 const Checklist = () => {
   const [weeklyToDoLists, setWeeklyToDoLists] = useState([]);
 
   useEffect(() => {
     generateWeeklyToDoLists();
-  }, []); // Run once on component mount
+  }, []);
 
   const generateWeeklyToDoLists = () => {
     const weeklyToDoLists = [];
@@ -109,15 +110,13 @@ const Checklist = () => {
     topics.forEach((topic) => {
       const tasks = tasksByTopic[topic];
       let numberOfTasks = 0;
-      // Randomly select number of tasks based on severity
       if (severity === 3) numberOfTasks = 5;
       else if (severity === 2) numberOfTasks = 3;
       else if (severity === 1) numberOfTasks = 2;
-      // Randomly select tasks from the topic
       toDoList[topic] = tasks
         .sort(() => Math.random() - 0.5)
         .slice(0, numberOfTasks)
-        .map((task) => ({ task, completed: false })); // Add completed property
+        .map((task) => ({ task, completed: false }));
     });
     return toDoList;
   };
@@ -142,67 +141,48 @@ const Checklist = () => {
   };
 
   return (
-    <div className="checklist">
-      <h2>To-Do Lists for the Week</h2>
-      <div className="weekly-to-do-lists">
-        {weeklyToDoLists.map((dailyList, index) => (
-          <div key={index} className="daily-to-do-list">
-            <h3>{`Day ${index + 1}: ${formatDate(
-              new Date(Date.now() + index * 24 * 60 * 60 * 1000)
-            )}`}</h3>
-            <ul>
-              {Object.entries(dailyList).map(([topic, tasks], i) => (
-                <li key={i}>
-                  <strong>{topic}</strong>
-                  <ul>
-                    {tasks.map((task, j) => (
-                      <li
-                        key={j}
-                        style={{
-                          textDecoration: task.completed
-                            ? "line-through"
-                            : "none",
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={task.completed}
-                          onChange={() => toggleCompletion(index, i, j)}
-                        />
-                        {task.task}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+    <div className="relative bg-cover bg-center bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>
+      <Header />
+      <div className="py-8 px-4 lg:px-24 bg-white bg-opacity-80">
+        <h2 className="text-2xl font-semibold mb-4">To-Do Lists for the Week</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {weeklyToDoLists.map((dailyList, index) => (
+            <div key={index} className="border border-gray-200 rounded p-4">
+              <h3 className="text-lg font-semibold mb-2">{`Day ${index + 1}: ${formatDate(
+                new Date(Date.now() + index * 24 * 60 * 60 * 1000)
+              )}`}</h3>
+              <ul>
+                {Object.entries(dailyList).map(([topic, tasks], i) => (
+                  <li key={i} className="mb-2">
+                    <strong>{topic}</strong>
+                    <ul className="ml-4">
+                      {tasks.map((task, j) => (
+                        <li
+                          key={j}
+                          className={`flex items-center ${
+                            task.completed ? "line-through text-gray-500" : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={task.completed}
+                            onChange={() => toggleCompletion(index, i, j)}
+                            className="mr-2"
+                          />
+                          {task.task}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };
 
 export default Checklist;
-
-{
-  /*
-    const generateWeeklyToDoLists = () => {
-  const storedLists = JSON.parse(localStorage.getItem("weeklyToDoLists"));
-  if (storedLists) {
-    setWeeklyToDoLists(storedLists);
-  } else {
-    const newLists = [];
-    for (let i = 0; i < 7; i++) {
-      const topicsForDay = selectedTopics;
-      const toDoList = generateToDoList(topicsForDay);
-      newLists.push(toDoList);
-    }
-    setWeeklyToDoLists(newLists);
-    // Store the newly generated lists in local storage
-    localStorage.setItem("weeklyToDoLists", JSON.stringify(newLists));
-  }
-};
-
- */
-}

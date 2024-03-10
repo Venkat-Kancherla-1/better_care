@@ -10,7 +10,7 @@ const Hero = () => {
     >
       <div className="relative lg:w-2/5 flex flex-col items-start w-full pt-10 lg:pt-20 lg:ml-60 lg:mt-12">
         <p className="text-3xl lg:text-7xl  font-bold leading-tight pl-20">
-          Welcome <span className="text-[#00dfc2] ">{username}!</span>
+          Welcome <span className="text-teal-600 ">{username}!</span>
         </p>
         <span className="text-base lg:text-3xl text-gray-600 pl-5">
           Hope you are doing great!
