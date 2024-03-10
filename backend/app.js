@@ -123,24 +123,30 @@ app.post('/api/signup', async (req, res) => {
     }
 })
 
-app.get('api/journals/username', async (req, res) => {
-    const {username} = req.body;
-    const posts = await Journal.find({ username:username });
+
+// Assuming your Express app is defined as 'app'
+app.get('/api/journals/:username', async (req, res) => {
+    const { username } = req.params;
+    console.log(username);
+    const posts = await Journal.find({ username });
 
     res.json({ status: "success", data: posts });
-})
+});
 
-app.post('api/journals/username', async (req, res) => {
-    const {username, date, tag, description} = req.body;
+app.post('/api/journals/:username', async (req, res) => {
+    const { username, date, tag, description } = req.body;
     const newJournal = new Journal({
-        username:username,
-        date:date,
-        tag:tag,
-        description:description,
-    })
+        username,
+        date,
+        tag,
+        description,
+    });
 
     await newJournal.save();
-})
+    res.json({ status: "success", data: newJournal });
+});
+
+
 app.post("/api/mood", async (req, res) => {
     console.log("executed");
     try {
