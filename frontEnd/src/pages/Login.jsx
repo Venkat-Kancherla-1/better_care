@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import login from "../assets/icons/login.jpg";
+import logo from '../assets/icons/logo.png';
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -28,7 +29,11 @@ const Login = () => {
     <>
       <div className="flex justify-center items-center h-screen bg-cover bg-center bg-no-repeat bg-white" style={{backgroundImage: `url(${login})`}}>
         <div className="w-3/4 lg:w-1/3 bg-white bg-opacity-80 shadow-lg rounded-lg p-8"> 
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">Login</h1> 
+          <div className="flex items-center mb-8"> 
+            <img src={logo} alt="Logo" className="h-10 mr-2" />
+            <h1 className="text-4xl font-bold text-gray-800">Better Care</h1> 
+          </div>
+          <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Login</h2> 
           <form onSubmit={handleFormSubmit} className="space-y-4"> 
             <div className="flex flex-col"> 
               <label htmlFor="username" className="text-gray-600 text-sm font-medium">Username</label> 
