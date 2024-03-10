@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import axios from "axios";
 import signup from "../assets/icons/signup.png";
 import bg from "../assets/icons/signupbg.jpg";
 import logo from "../assets/icons/logo.png";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-
 const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +31,7 @@ const SignUp = () => {
 
   return (
     <>
-      {status === 200 ? (
+      {status == 200 ? (
         <Navigate to="/login" />
       ) : (
         <div
@@ -68,7 +68,75 @@ const SignUp = () => {
                       className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
                   </div>
-                  {/* Other form elements */}
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="email"
+                      className="text-gray-600 text-sm font-medium"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      placeholder="Email"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                      className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="username"
+                      className="text-gray-600 text-sm font-medium"
+                    >
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      placeholder="Username"
+                      required
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                      }}
+                      className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="password"
+                      className="text-gray-600 text-sm font-medium"
+                    >
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      required
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                      type="submit"
+                      className="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                  <div>
+                    Already have an account{" "}
+                    <Link to="/login" className="text-teal-600 underline">
+                      Login
+                    </Link>
+                  </div>
                 </form>
               </div>
               <div className="w-1/2 flex justify-center items-center">
