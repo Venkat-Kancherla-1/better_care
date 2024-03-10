@@ -9,6 +9,7 @@ export default function Footer() {
           <div className="mb-6 md:mb-0">
             <Link to="home" target="_blank" className="flex items-center">
               <img src={logo} className="mr-3 h-16" alt="Logo" />
+              <span className="text-black hover:cursor-pointer text-xl mb-1">Better Care</span>
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

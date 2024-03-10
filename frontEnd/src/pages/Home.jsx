@@ -9,6 +9,9 @@ function Home() {
         <Header/>
         <section className=""> <Hero/>  </section>
         <br />
+        <p className="text-4xl font-bold text-center mt-8 mb-4 text-gray-800">Discover Our Featured Content</p>
+
+        <br />
         <section className=""> <Cards/>  </section>
         <Footer/>
      </main>

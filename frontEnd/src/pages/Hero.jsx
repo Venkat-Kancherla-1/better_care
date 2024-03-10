@@ -9,15 +9,17 @@ const Hero = () => {
       className="w-full flex flex-col lg:flex-row justify-between pr-10 pl-10 gap-10"
     >
       <div className="relative lg:w-2/5 flex flex-col items-start w-full pt-10 lg:pt-20 lg:ml-60 lg:mt-12">
-        <p className="text-3xl lg:text-7xl  font-bold leading-tight pl-20">
-          Welcome <span className="text-teal-600 ">{username}!</span>
+        <p className="text-5xl lg:text-8xl font-bold pl-20"> {/* Adjusted font size */}
+          Welcome <span className="text-teal-600 text-3xl lg:text-8xl"> {/* Adjusted font size */}
+            {username}!
+          </span>
         </p>
-        <span className="text-base lg:text-3xl text-gray-600 pl-5">
+        <span className="text-lg lg:text-4xl text-black"> {/* Adjusted font size */}
           Hope you are doing great!
         </span>
-        <div className="mt-4 lg:mt-6 lg:ml-10 text-lg text-gray-700 flex items-center justify-center">
-          <span className="font-custom">
-            Tell us about Your Accomplishments
+        <div className="mt-4 lg:mt-4  text-lg text-gray-700 flex items-center justify-center">
+          <span className="font-custom text-lg lg:text-3xl"> {/* Adjusted font size */}
+            Tell us About Your Accomplishments
           </span>
         </div>
         <div

@@ -8,6 +8,7 @@ export default function Header() {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <img src={logo} className="mr-3 h-12" alt="Logo" />
+            <span className="text-black hover:cursor-pointer text-xl mb-1">Better Care</span>
           </Link>
           <div className="flex items-center lg:order-2">
             {/* <Link

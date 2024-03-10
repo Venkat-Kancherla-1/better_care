@@ -12,12 +12,12 @@ import { cards1, cards2 } from "../constants";
 const Cards = () => {
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4">
         {cards1.map((card, index) => (
-          <Card key={index} className="mt-6 hover:scale-110 transition-transform">
+          <Card key={index} className="mt-6">
             <CardHeader
               color="blue-gray"
-              className="relative h-56 rounded-lg px-3 py-3"
+              className="relative pt-2 h-44 rounded-lg px-3 shadow-none" // Removed hover effect
             >
               <img
                 src={card.imageURL}
@@ -25,19 +25,19 @@ const Cards = () => {
                 className="object-cover w-full h-full rounded-lg"
               />
             </CardHeader>
-            <CardBody className="py-6">
+            <CardBody className="py-4">
               <Typography
                 variant="h3"
                 color="blue-gray"
-                className="ml-2 font-bold mb-2 text-shadow-md"
+                className="ml-2 font-bold mb-1 text-shadow-md"
               >
                 {card.title}
               </Typography>
-              <Typography className="px-3">{card.text}</Typography>
+              <Typography className="px-3 text-sm">{card.text}</Typography>
             </CardBody>
             <CardFooter className="flex justify-center">
               <Link to={card.link}>
-                <button className="bg-teal-600 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
+                <button className="bg-teal-600 rounded-lg text-lg mb-1 text-white leading-none px-6 py-3">
                   Explore!
                 </button>
               </Link>
@@ -47,12 +47,12 @@ const Cards = () => {
       </div>
       <br />
       <br />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 justify-center lg:px-40">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-10 justify-center mb-8">
         {cards2.map((card, index) => (
-          <Card key={index} className="mt-6 hover:scale-110 transition-transform">
+          <Card key={index} className="mt-6">
             <CardHeader
               color="blue-gray"
-              className="relative h-56 px-3 py-3 rounded-lg"
+              className="relative h-44 px-3 pt-2 rounded-lg shadow-none" // Removed hover effect
             >
               <img
                 src={card.imageURL}
@@ -60,19 +60,19 @@ const Cards = () => {
                 className="object-cover w-full h-full rounded-lg"
               />
             </CardHeader>
-            <CardBody className="py-6">
+            <CardBody className="py-4">
               <Typography
                 variant="h3"
                 color="blue-gray"
-                className="ml-2 font-bold mb-2"
+                className="ml-2 font-bold mb-1"
               >
                 {card.title}
               </Typography>
-              <Typography className="px-3">{card.text}</Typography>
+              <Typography className="px-3 text-sm">{card.text}</Typography>
             </CardBody>
             <CardFooter className="flex justify-center">
               <Link to={card.link}>
-                <button className="bg-teal-600 rounded-lg text-xl mb-3 text-white leading-none px-2 py-2">
+                <button className="bg-teal-600 rounded-lg text-lg mb-1 text-white leading-none px-6 py-3">
                   Explore!
                 </button>
               </Link>
