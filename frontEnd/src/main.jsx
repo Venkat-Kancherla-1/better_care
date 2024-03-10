@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Layout from "./Layout.jsx";
 import Test from "./pages/Test.jsx";
+import Journal from "./pages/Journal.jsx";
 import MoodTracker from "./pages/MoodTracker.jsx";
 import MoodInput from "./pages/MoodInput.jsx";
 import Checklist from "./pages/Checklist.jsx";
@@ -28,10 +29,11 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<SignUp />} />
-      <Route path="/about" element = {<About/>}/>
+      <Route path="/about" element={<About />} />
       <Route path="login" element={<Login />}></Route>
       <Route path="preferences" element={<Preferences />} />
       <Route path="test" element={<Test />} />
+      <Route path="journal" element={<Journal />} />
       <Route path="checklist" key="checklist" element={<Checklist />} />
       <Route path="moodtracker" element={<MoodTracker />} />
       <Route path="moodinput" element={<MoodInput />} />
