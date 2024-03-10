@@ -106,7 +106,7 @@ const Checklist = () => {
   };
 
   const generateToDoList = (topics) => {
-    const toDoList = {};
+    const toDoList = [];
     topics.forEach((topic) => {
       const tasks = tasksByTopic[topic];
       let numberOfTasks = 0;
@@ -118,9 +118,10 @@ const Checklist = () => {
         .slice(0, numberOfTasks)
         .map((task) => ({ task, completed: false }));
     });
+    console.log(toDoList);
     return toDoList;
   };
-
+  
   const toggleCompletion = (dayIndex, topicIndex, taskIndex) => {
     const updatedLists = [...weeklyToDoLists];
     const topicKey = selectedTopics[topicIndex];
