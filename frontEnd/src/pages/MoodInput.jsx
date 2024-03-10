@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import {Link} from "react-router-dom"
 
 const MoodInput = ({ username }) => {
   const [selectedMood, setSelectedMood] = useState(0);
@@ -38,6 +39,7 @@ const MoodInput = ({ username }) => {
       <button onClick={() => handleMoodSubmit("2024-12-13")}>
         Update Mood
       </button>
+     <Link to="/moodtracker"><button >Mood Tracker</button></Link> 
     </div>
   );
 };
