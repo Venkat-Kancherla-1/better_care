@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import login from "../assets/icons/login.jpg";
+import { useNavigate , Link} from "react-router-dom";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +59,7 @@ const Login = () => {
               />
             </div>
             <div className="flex justify-end"> 
-              <button type="submit" className="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600">Sign In</button> 
+              <Link to="/home"><button type="submit" className="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600">Sign In</button></Link>
             </div>
           </form>
         </div>
