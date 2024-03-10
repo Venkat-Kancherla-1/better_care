@@ -15,7 +15,7 @@ export const cards1 = [
     title: "Journaling",
     text: "Embrace the power of reflection and self-discovery with our journaling feature. Whether jotting down thoughts, emotions, or moments of gratitude, our platform provides a safe space for you to explore your innermost thoughts and feelings. Dive deep into your personal journey, track your progress, and gain insights into your mental well-being. Start journaling today and unlock the transformative potential of self-expression.",
     imageURL: journal,
-    link: "/home",
+    link: "/journal",
   },
   {
     title: "Meditation",
@@ -30,7 +30,7 @@ export const cards2 = [
     title: "Mood Tracking",
     text: "Stay in tune with your emotional well-being through our intuitive mood tracking feature. Easily log your daily moods and emotions, gaining valuable insights into patterns and triggers. With customizable tags and notes, you can pinpoint what influences your mood and track your progress over time. Empower yourself to take control of your mental health journey and make informed decisions to foster a happier, healthier you. Start tracking your mood today and take the first step towards emotional awareness and self-care.",
     imageURL: mood,
-    link: "/moodtracker",
+    link: "/moodinput",
   },
   {
     title: "Consult A Profession",
