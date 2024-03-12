@@ -10,8 +10,8 @@ const Hero = () => {
     >
       <div className="relative lg:w-2/5 flex flex-col items-start w-full pt-10 lg:pt-20 lg:ml-60 lg:mt-12">
         <p className="text-5xl lg:text-8xl font-bold pl-20"> {/* Adjusted font size */}
-          Welcome <span className="text-teal-600 text-3xl lg:text-8xl"> {/* Adjusted font size */}
-            {username}!
+          Welcome <span className="text-teal-600 text-3xl lg:text-5xl"> {/* Adjusted font size */}
+            {username}Eccentric Harry!
           </span>
         </p>
         <span className="text-lg lg:text-4xl text-black"> {/* Adjusted font size */}

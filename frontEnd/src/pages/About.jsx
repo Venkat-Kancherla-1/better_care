@@ -30,7 +30,7 @@ function About() {
                             </p>
                             <br />
                             <div>
-                            <button className='bg-[#00dfc2] text-white rounded-xl' >Contact Us!</button>
+                            <button className='bg-teal-600 text-white rounded-xl' >Contact Us!</button>
                         </div>
                         </div>
 
